@@ -6,9 +6,9 @@ metadata:
 spec:
   releaseName: arc-k8s-demo
   chart:
-    git: msdata@vs-ssh.visualstudio.com:v3/msdata/Vienna/itp-backend
-    ref: mingj/arc
-    path: docs/deployment/Cmk8s/tools/installer/install-job-chart
+    git: https://github.com/Martin-Jia/arcTest.git
+    ref: main
+    path: install-job-chart
   values:
     image: cmaksacr.azurecr.io/cmk8s/cicd/agent-setup:build_pipeline-2f6056c875244c63c96a6f1ab457d9fa32451cb5
     kube_conf: kubernetes
