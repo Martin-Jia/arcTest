@@ -4,7 +4,7 @@ metadata:
   name: arctest
   namespace: azureml
 spec:
-  releaseName: arc-k8s-demo
+  releaseName: arc-k8s-test
   chart:
     git: https://github.com/Martin-Jia/arcTest.git
     ref: main
