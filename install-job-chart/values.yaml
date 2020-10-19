@@ -1,0 +1,7 @@
+sub: 06237282-1ddd-4677-9999-5bc19cc0001a
+resource_group: ITPTesting
+workspaceid: cmakstest
+computeid: dummycomputeid 
+nodepool: dummpynodepoolll
+appkey: InstrumentationKey=d1567a02-e25c-49c3-b2c2-6ff37160ab1c
+relay_connection_string: Endpoint=sb://relay-yuyu3.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<access_key>;EntityPath=test-installation

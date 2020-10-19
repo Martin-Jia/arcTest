@@ -1,0 +1,58 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: cmaks-init-job-account
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: cmaks-init-job-rolebinding-cluster
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: cmaks-init-job-account
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  labels:
+    app: cmaks-init-job
+  name: cmaks-init-job
+  namespace: {{ .Release.Namespace }}
+spec:
+  backoffLimit: 0
+  completions: 1
+  parallelism: 1
+  template:
+    metadata:
+      labels:
+        job-name: cmaks-init-job
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+      serviceAccountName: cmaks-init-job-account
+      containers:
+      - env:
+        - name:  CLUSTER_MAPPING_INFO_JSON
+          value: '{"subscriptionId": "{{ .Values.sub }}", "resourceGroup" :"{{ .Values.resource_group }}", "workspaceId": "{{ .Values.workspaceid }}", "id": "{{ .Values.computeid }}", "nodePool": "{{ .Values.nodepool }}", "appInsightsConnectionString": "{{ .Values.appkey }}" }'
+        - name: RELAY_CONNECTION_STRING
+          value: {{ .Values.relay_connection_string }} 
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        name: cmaks-init-job-container
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: cmaks-image-pull-secret
+      restartPolicy: Never
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
