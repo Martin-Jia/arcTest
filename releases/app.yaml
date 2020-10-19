@@ -1,7 +1,7 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: arcTest
+  name: arctest
   namespace: azureml
 spec:
   releaseName: arc-k8s-demo
