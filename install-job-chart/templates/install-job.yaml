@@ -2,7 +2,6 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  namespace: {{ .Release.Namespace }}
   name: cmaks-init-job-account
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -16,7 +15,6 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: cmaks-init-job-account
-    namespace: {{ .Release.Namespace }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -24,7 +22,6 @@ metadata:
   labels:
     app: cmaks-init-job
   name: cmaks-init-job
-  namespace: {{ .Release.Namespace }}
 spec:
   backoffLimit: 0
   completions: 1
