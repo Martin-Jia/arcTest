@@ -12,3 +12,4 @@ spec:
   values:
     image: cmaksacr.azurecr.io/cmk8s/cicd/agent-setup:build_pipeline-2f6056c875244c63c96a6f1ab457d9fa32451cb5
     kube_conf: kubernetes
+    namespace: azureml
